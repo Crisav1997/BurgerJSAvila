@@ -17,13 +17,13 @@
         <img src="assets/img/logo_burger.png" alt="">
     </div>
     <div class="col-sm-9 btnHeader">
-      <H1>Control de Stock de BurgerHouse</H1>
+      <H1 class="txtColor">Control de Stock de BurgerHouse</H1>
       <button type="button" id="out" class="btn btn-light">LogOut</button>
     </div>  
 </div>
     <div class="row main1">
       <div class="col-sm-6">
-        <p class="text-center pt-4">Agregar BOX</p>
+        <h4 class="text-center pt-4">Agregar Caja a Stock</h4>
         <form>
           <div class="mb-3">
             <label class="form-label">ID BOX</label>
@@ -45,11 +45,11 @@
             <label class="form-label">Cebolla</label>
             <input type="text" class="form-control" id="cebolla" >
           </div>
-          <button type="button" class="btn btn-primary" id="stock">Submit</button>
+          <div class="centrar"><button type="button" class="btn btn-primary" id="stock">Cargar Datos</button></div>
         </form>
       </div>
       <div class="col-sm-6">
-        <p class="text-center pt-4">Listado BoX</p>
+        <h4 class="text-center pt-4">Stock Almacen</h4>
         
         <table class="table">
           <thead>
@@ -65,6 +65,11 @@
             <!-- Desde JS -->
           </tbody>
         </table>
+      </div>
+      <div class="col-sm-12 text-center mt-4"><h3>Consumo de Stock por Hamburgesa</h3>
+      <BUtton id="btn2" class="btn btn-light">Ver Stock</BUtton></div>
+      <div class="col-sm-12 flexCard pt-4 pb-4" id="inner2">
+
       </div>
     </div>
     <div class="row bgFooter">

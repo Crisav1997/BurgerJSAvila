@@ -3,7 +3,6 @@ const nombre= document.getElementById("nombre");
 const btn= document.getElementById("btnEnviar");
 const newU=document.getElementById("newUsuario")
 const form = document.querySelector('form');
-let existe=document.getElementById("existe")
 let iniciado=0;
 //Array
 let users =[]
@@ -52,7 +51,6 @@ function crearUsuario(){
           }).showToast();
     }
     else{
-        existe.innerText="Registrando"
         const usuario1=new usuario(nombre.value,contraseña.value);
          users.push(usuario1);
         const usuarioJson=JSON.stringify(users)

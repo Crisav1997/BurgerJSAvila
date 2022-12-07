@@ -7,24 +7,32 @@ let carne=document.getElementById("carne")
 let cheddar=document.getElementById("cheddar")
 let cebolla=document.getElementById("cebolla")
 let crear=document.getElementById("inner")
+let crear2=document.getElementById("inner2")
+let btn2=document.getElementById("btn2")
 let iniciado=0;
-//Array
+
 let almacen=[]
 let almacenLS=JSON.parse(localStorage.getItem("Almacen"))
 if(almacenLS){
     almacen=almacenLS
-}
-else{
+  }
+  else{
     iniciado=1;
+  }
+function limpiar(){
+  pan.value=""
+  carne.value=""
+  id.value=""
+  cheddar.value=""
+  cebolla.value=""
 }
 
-//LogOut
 out.addEventListener("click",salir)
-function salir(){
+    function salir(){
     window.location="pages/ident.html"
-}
-crearHtml(almacen) 
-//AgregarStock
+    }
+  crearHtml(almacen) 
+
 stock.addEventListener("click",verStock)
 function verStock(){
     class box{
@@ -35,14 +43,12 @@ function verStock(){
             this.cheddar=cheddar;
             this.cebolla=cebolla;
         }
-    }
-    //Traigo Inputs  
+    } 
     let idB=id.value 
     let panB=pan.value
     let carneB=carne.value
     let cheddarB=cheddar.value
     let cebollaB=cebolla.value;
-    //Traigo LocalStorage y guardo en boxesJson
     let boxes=localStorage.getItem("Almacen")
     let boxesJson=JSON.parse(boxes)
     let flag=0;
@@ -70,26 +76,19 @@ function verStock(){
       }).showToast();
     }
     else{
- //Guardar en array
     const nuevaBox=new box(idB,panB,carneB,cheddarB,cebollaB)
     almacen.push(nuevaBox)
     const almacenJSON=JSON.stringify(almacen)
     localStorage.setItem("Almacen",almacenJSON)
     console.log(almacenJSON)
     }
-    
     guardarLS(almacen)
+    limpiar()
     crearHtml(almacen) 
-}
-
-//Imprimir Arrays
-
-
-  //Agregando funcion lista
+  }
   function guardarLS(arr) {
     localStorage.setItem("Almacen", JSON.stringify(arr));
   }
-
   function crearHtml(arr) {
     crear.innerHTML = "";
     let html = "";
@@ -103,7 +102,6 @@ function verStock(){
             <td><button class="btn btn-danger"id="${item.id}"> Borrar </button></td>
             </tr>
           `
-
     crear.innerHTML += html;
     }
     const arrayBotones = document.querySelectorAll('td .btn');
@@ -115,11 +113,38 @@ function verStock(){
       })
     })
   }
+   let mostrar;
 
-  //Fetch
-  fetch('./data/data.json')
-  .then((response)=>response.json())
-  .then((data=>{
-  console.log(data);
-  }))
-    
+   const VerHamburguesa=()=>{
+     return new Promise((resolve)=>{
+      btn2.addEventListener("click",()=>{
+        mostrar=true
+        resolve("Veni a retirar");
+       })
+       })}
+ VerHamburguesa(mostrar)
+   .then((response)=>{
+    fetch('../data/data.json')
+   .then((response)=>response.json())
+   .then((data=>{
+     crear2.innerHTML = "";
+     data.forEach(datos=>{
+       html =`<div class="card text-center mt-2 mb-2 " style="width: 18rem;">
+       <div class="card-body">
+         <h5 class="card-title">${datos.nombre}</h5>
+         <p class="card-text">Precio:${datos.Precio} </p>
+         <p class="card-text">Lechuga? ${datos.Popularidad} </p>
+         <p class="card-text">Lechuga? ${datos.Carnes} </p>
+         <p class="card-text">Lechuga? ${datos.Cheddar} </p>
+       </div>
+     </div>`
+       crear2.innerHTML += html;
+     })
+   }))
+
+
+   }).catch((err)=>{
+     alert(err);
+   }).finally(()=>{
+     console.log('Gracias vuelva prontos');
+   });

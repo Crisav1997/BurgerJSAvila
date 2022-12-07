@@ -52,4 +52,14 @@
     align-items: center;
     justify-content: space-between;
 }
-  
+
+.flexCard{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: center;
+}
+.centrar{
+  display: flex;
+    justify-content: center;
+}
