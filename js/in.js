@@ -7,7 +7,6 @@ const users =[]
 form.addEventListener('submit', e => e.preventDefault());
 
 //RecorriendoLocal
-
 btn.addEventListener("click",runStorage)
 function runStorage(){
     let buscar=nombre.value;
@@ -30,6 +29,21 @@ function runStorage(){
     
      });
 if (flag==1){console.log("ok")}
-else{console.log("no encontrado")}
-
+else{
+    Toastify({
+        text: "Usuario y/o contraseña incorrecta",
+        duration: 2000,
+        destination: "https://github.com/apvarun/toastify-js",
+        newWindow: true,
+        close: true,
+        gravity: "top",
+        position: "center", 
+        stopOnFocus: true,
+        style: {
+          background: "red",
+        },
+        onClick: function(){} // Callback after click
+      }).showToast();
 }
+}
+

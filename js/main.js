@@ -1,116 +1,125 @@
-//Guardar y leer en Local y session
-    //localStorage.setItem("hola","cristian");
-    //localStorage.setItem("hola1","cristian1");
-    //localStorage.setItem("hola2","cristian2");
-    //localStorage.setItem("hola3","cristian3");
-    // let nombre=localStorage.getItem("hola");
-    // sessionStorage.setItem("chau","cristian");
-    // let chau=localStorage.getItem("chau")
+let stock= document.getElementById("stock")
+let pedir=document.getElementById("pedir")
+let out=document.getElementById("out")
+let id=document.getElementById("id")
+let pan=document.getElementById("pan")
+let carne=document.getElementById("carne")
+let cheddar=document.getElementById("cheddar")
+let cebolla=document.getElementById("cebolla")
+let crear=document.getElementById("inner")
+let iniciado=0;
+//Array
+let almacen=[]
+let almacenLS=JSON.parse(localStorage.getItem("Almacen"))
+if(almacenLS){
+    almacen=almacenLS
+}
+else{
+    iniciado=1;
+}
 
-//RECORRER STORAGE
-
-    // for(let i=0;i<localStorage.length;i++){
-    //     let clave=localStorage.key(i);
-    //     console.log("clave: "+ clave)
-    //     console.log("valor: "+ localStorage.getItem(clave))
-    // }
-
-// REMOVER ITEM
-    //localStorage.removeItem("hola");
-
-//JSON PARA AGUARDAR CUALQUIER TIPO DE ARCHIVO
- //stringify
-    //const producto={id:1,mercaderia:"arroz"} //en js
-    //const productoJSON=JSON.stringify(producto);
-    //localStorage.setItem("producto",productoJSON);
- //parse
-    //const producto1=JSON.parse(productoJSON)
-    //console.log(producto1)
-
-
-
-const contraseña= document.getElementById("contra");
-const nombre= document.getElementById("nombre");
-const btn= document.getElementById("btnEnviar");
-const newU=document.getElementById("newUsuario")
-const form = document.querySelector('form');
-const users =[]
-form.addEventListener('submit', e => e.preventDefault());
-
-// btn.addEventListener("click",respuesta(contraseña,nombre));
-// function respuesta(contra,nombre){
-// }
-
-//Datos PreCargados
-const admin1=("admin1","admin");
-const admin2=("admin2","admin");
-const admin1Json=JSON.stringify(admin1)
-const admin2Json=JSON.stringify(admin2)
-localStorage.setItem("Admin1",admin1Json)
-localStorage.setItem("Admin2",admin2Json)
-
-//RecorriendoLocal
-
-btn.addEventListener("click",runStorage)
-function runStorage(){
-    let buscar=nombre.value;
-    let contrasena=contraseña.value
-    let users1=localStorage.getItem("Usuario")
-    let usersJson=JSON.parse(users1)
+//LogOut
+out.addEventListener("click",salir)
+function salir(){
+    window.location="pages/ident.html"
+}
+crearHtml(almacen) 
+//AgregarStock
+stock.addEventListener("click",verStock)
+function verStock(){
+    class box{
+        constructor(id,pan,carne,cheddar,cebolla){
+            this.id=id;
+            this.pan=pan;
+            this.carne=carne;
+            this.cheddar=cheddar;
+            this.cebolla=cebolla;
+        }
+    }
+    //Traigo Inputs  
+    let idB=id.value 
+    let panB=pan.value
+    let carneB=carne.value
+    let cheddarB=cheddar.value
+    let cebollaB=cebolla.value;
+    //Traigo LocalStorage y guardo en boxesJson
+    let boxes=localStorage.getItem("Almacen")
+    let boxesJson=JSON.parse(boxes)
     let flag=0;
-    
-    usersJson.forEach(element => {
-
-        if((element.usuario==buscar)&&(element.contraseña==contrasena))  {
-        
+    console.log(iniciado)
+    if(iniciado==1){boxesJson=[]}
+    for(let i=0;i<boxesJson.length;i++){
+        if(boxesJson[i].id==idB){
             flag=1;
-            
-        }  
-        else{
-           
         }
-    
-     });
-if (flag==1){console.log("ok")}
-else{console.log("no encontrado")}
-
-}
-
-
-
-
-
-//Guardando Usuario Nuevo
-newU.addEventListener("click",crearUsuario)
-function crearUsuario(){
-    class usuario{
-        constructor(usuario,contraseña){
-            this.usuario=usuario;
-            this.contraseña=contraseña;
-        }
-    } 
-    const usuario1=new usuario(nombre.value,contraseña.value);
-    users.push(usuario1);
-    const usuarioJson=JSON.stringify(users)
-    localStorage.setItem("Usuario",usuarioJson)
-}
-
-//Comparando Resultados
-//btn.addEventListener("click",consulta)
-function consulta(){
-let nombreIng = nombre.value;
-let contraIng = contraseña.value;
-let admin1J=localStorage.getItem("Admin1")
-let admin1=JSON.parse(admin1J);
-//if(localStorage.getItem("Admin1"))
-}
-//localStorage.setItem("nombre", nombre)
-
-function adentro(x,y){
-    if(x==y){
-        console.log("adentro")
+    }
+    if(flag==1){
+      Toastify({
+        text: "BOX ya cargada",
+        duration: 2000,
+        destination: "https://github.com/apvarun/toastify-js",
+        newWindow: true,
+        close: true,
+        gravity: "top",
+        position: "center", 
+        stopOnFocus: true,
+        style: {
+          background: "red",
+        },
+        onClick: function(){} // Callback after click
+      }).showToast();
     }
     else{
-        console.log("afuera")
+ //Guardar en array
+    const nuevaBox=new box(idB,panB,carneB,cheddarB,cebollaB)
+    almacen.push(nuevaBox)
+    const almacenJSON=JSON.stringify(almacen)
+    localStorage.setItem("Almacen",almacenJSON)
+    console.log(almacenJSON)
     }
+    
+    guardarLS(almacen)
+    crearHtml(almacen) 
 }
+
+//Imprimir Arrays
+
+
+  //Agregando funcion lista
+  function guardarLS(arr) {
+    localStorage.setItem("Almacen", JSON.stringify(arr));
+  }
+
+  function crearHtml(arr) {
+    crear.innerHTML = "";
+    let html = "";
+    for (const item of arr) {
+          html =`<tr>
+            <th scope="row">${item.id}</th>
+            <td>${item.pan}</td>
+            <td>${item.carne}</td>
+            <td>${item.cheddar}</td>
+            <td>${item.cebolla}</td>
+            <td><button class="btn btn-danger"id="${item.id}"> Borrar </button></td>
+            </tr>
+          `
+
+    crear.innerHTML += html;
+    }
+    const arrayBotones = document.querySelectorAll('td .btn');
+    arrayBotones.forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        almacen= almacen.filter(el=>el.id != btn.id);
+        guardarLS(almacen);
+        crearHtml(almacen)
+      })
+    })
+  }
+
+  //Fetch
+  fetch('./data/data.json')
+  .then((response)=>response.json())
+  .then((data=>{
+  console.log(data);
+  }))
+    
