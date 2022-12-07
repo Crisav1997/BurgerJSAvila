@@ -10,7 +10,6 @@ let crear=document.getElementById("inner")
 let crear2=document.getElementById("inner2")
 let btn2=document.getElementById("btn2")
 let iniciado=0;
-
 let almacen=[]
 let almacenLS=JSON.parse(localStorage.getItem("Almacen"))
 if(almacenLS){
@@ -26,13 +25,11 @@ function limpiar(){
   cheddar.value=""
   cebolla.value=""
 }
-
 out.addEventListener("click",salir)
     function salir(){
     window.location="pages/ident.html"
     }
   crearHtml(almacen) 
-
 stock.addEventListener("click",verStock)
 function verStock(){
     class box{
@@ -52,7 +49,6 @@ function verStock(){
     let boxes=localStorage.getItem("Almacen")
     let boxesJson=JSON.parse(boxes)
     let flag=0;
-    console.log(iniciado)
     if(iniciado==1){boxesJson=[]}
     for(let i=0;i<boxesJson.length;i++){
         if(boxesJson[i].id==idB){
@@ -80,7 +76,6 @@ function verStock(){
     almacen.push(nuevaBox)
     const almacenJSON=JSON.stringify(almacen)
     localStorage.setItem("Almacen",almacenJSON)
-    console.log(almacenJSON)
     }
     guardarLS(almacen)
     limpiar()
@@ -114,7 +109,6 @@ function verStock(){
     })
   }
    let mostrar;
-
    const VerHamburguesa=()=>{
      return new Promise((resolve)=>{
       btn2.addEventListener("click",()=>{
@@ -133,18 +127,15 @@ function verStock(){
        <div class="card-body">
          <h5 class="card-title">${datos.nombre}</h5>
          <p class="card-text">Precio:${datos.Precio} </p>
-         <p class="card-text">Lechuga? ${datos.Popularidad} </p>
-         <p class="card-text">Lechuga? ${datos.Carnes} </p>
-         <p class="card-text">Lechuga? ${datos.Cheddar} </p>
+         <p class="card-text">Popularidad:  ${datos.Popularidad} </p>
+         <p class="card-text">Carnes: ${datos.Carnes} </p>
+         <p class="card-text">Cheddar: ${datos.Cheddar} </p>
        </div>
      </div>`
        crear2.innerHTML += html;
      })
    }))
-
-
    }).catch((err)=>{
      alert(err);
    }).finally(()=>{
-     console.log('Gracias vuelva prontos');
    });

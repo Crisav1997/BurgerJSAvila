@@ -4,18 +4,15 @@ const btn= document.getElementById("btnEnviar");
 const newU=document.getElementById("newUsuario")
 const form = document.querySelector('form');
 let iniciado=0;
-//Array
 let users =[]
 let userInLS=JSON.parse(localStorage.getItem("Usuario"))
 if(userInLS){
     users=userInLS
-}
-else{
+  }
+  else{
     iniciado=1;
-}
+  }
 form.addEventListener('submit', e => e.preventDefault());
-
-//CrearUsuario
 newU.addEventListener("click",crearUsuario)
 function crearUsuario(){
     class usuario{
@@ -72,7 +69,6 @@ function crearUsuario(){
           setTimeout(()=>{
             window.location="ident.html";
           },3000)
-       
     }
 }
 
